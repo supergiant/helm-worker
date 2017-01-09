@@ -19,6 +19,7 @@ spec:
       - name: helm-worker
         image: supergiant/helm-worker:v2.1.3
         imagePullPolicy: Always
-        command: ["/helm", "init", "&&", "/helm", "search;", "/helm", "install", "stable/redmine"]
+        command: ["/bin/sh","-c"]
+        args: ["/helm init && /helm repo update && /helm search; /helm install stable/mongodb"]
       restartPolicy: Never
 ```
