@@ -20,6 +20,6 @@ spec:
         image: supergiant/helm-worker:v2.1.3
         imagePullPolicy: Always
         command: ["/bin/sh","-c"]
-        args: ["/helm init && /helm repo update && /helm search; /helm install stable/mongodb"]
+        args: ["/helm init && /helm repo update && /helm search; /helm install stable/jenkins"]
       restartPolicy: Never
 ```
