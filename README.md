@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: helm-worker
-        image: supergiant/helm-worker:latest
+        image: supergiant/helm-worker:v2.1.3
         imagePullPolicy: Always
         command: ["/helm init && /helm search; /helm install stable/redmine"]
       restartPolicy: Never
