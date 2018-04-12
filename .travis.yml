@@ -4,14 +4,12 @@ services:
   - docker
 
 script:
-- curl -o ./helm.tar.gz http://storage.googleapis.com/kubernetes-helm/helm-v2.6.2-linux-amd64.tar.gz
+- curl -o ./helm.tar.gz http://storage.googleapis.com/kubernetes-helm/helm-v2.8.2-linux-amd64.tar.gz
 - tar -xvf ./helm.tar.gz
 - cp linux-amd64/helm ./helm
 - chmod +x ./helm
-
-after_success:
-  - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-  - export REPO=supergiant/helm-worker
-  - export TAG=`if [ -z "$TRAVIS_TAG" ] && [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; elif [ -z "$TRAVIS_TAG" ] && [ "$TRAVIS_BRANCH" != "master" ]; then echo "unstable-${TRAVIS_BRANCH}"; else echo $TRAVIS_TAG ; fi`
-  - docker build -t $REPO:$TAG .
-  - docker push $REPO
+- docker login -u $DOCKER_USER -p $DOCKER_PASS
+- export REPO=supergiant/helm-worker
+- export TAG=`if [ -z "$TRAVIS_TAG" ] && [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; elif [ -z "$TRAVIS_TAG" ] && [ "$TRAVIS_BRANCH" != "master" ]; then echo "unstable-${TRAVIS_BRANCH}"; else echo $TRAVIS_TAG ; fi`
+- docker build -t $REPO:$TAG .
+- docker push $REPO
